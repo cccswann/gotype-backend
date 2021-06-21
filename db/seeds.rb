@@ -14,7 +14,12 @@ def seed_cards(filename)
             sentence_with_furigana: card["sentence_with_furigana"],
             word_base_list: card["word_base_list"],
             word_list: card["word_list"],
-            deck_id: find_deck_id(card["deck_name"])
+            deck_id: find_deck_id(card["deck_name"]),
+            translation_word_list: card["translation_word_list"],
+            translation_word_base_list: card["translation_word_base_list"],
+            translation: card["translation"],
+            image: card["image"],
+            sound: card["sound"]
         )
     end
 end
@@ -22,7 +27,7 @@ end
 def seed_deck(filename)
     data_hash = JSON.parse(File.read(path_file(filename)))
     data_hash.each do |card|
-        Deck.create!(
+        Deck.find_or_create_by!(
             deck_name: card["deck_name"]
         )
     end
@@ -36,5 +41,5 @@ def find_deck_id(name)
     end
 end
 
-
+seed_deck('deathnote-data.json')
 seed_cards('deathnote-data.json')
