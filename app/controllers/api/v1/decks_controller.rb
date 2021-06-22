@@ -23,6 +23,11 @@ class Api::V1::DecksController < ApplicationController
           render json: @deck, status: 200
         end
     end
+
+    def show
+        @deck = Deck.find(params[:id])
+        render json: @deck, status: 200
+      end
     
     private
         def deck_params
