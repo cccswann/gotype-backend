@@ -4,4 +4,4 @@ namespace :db do
     task reseed: [ 'db:drop', 'db:create', 'db:migrate', 'db:seed' ] do
       puts 'Reseeding completed.'
     end
-  end
+end
