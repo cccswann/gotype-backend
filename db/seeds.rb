@@ -24,6 +24,16 @@ def seed_cards(filename)
     end
 end
 
+def seed_text(filename)
+    data_hash = JSON.parse(File.read(path_file(filename)))
+    data_hash.each do |text|
+        Text.create!(
+            language: text["language"],
+            words: text["words"]
+        )
+    end
+end
+
 def seed_deck(filename)
     data_hash = JSON.parse(File.read(path_file(filename)))
     data_hash.each do |card|
@@ -43,3 +53,4 @@ end
 
 seed_deck('deathnote-data.json')
 seed_cards('deathnote-data.json')
+seed_text('random.json')
