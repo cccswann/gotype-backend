@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_21_190711) do
+ActiveRecord::Schema.define(version: 2021_07_06_200358) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "api_v1_users", force: :cascade do |t|
+    t.string "username"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "cards", force: :cascade do |t|
     t.string "sentence"
@@ -37,5 +43,21 @@ ActiveRecord::Schema.define(version: 2021_06_21_190711) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "scores", force: :cascade do |t|
+    t.integer "score"
+    t.bigint "api_v1_user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["api_v1_user_id"], name: "index_scores_on_api_v1_user_id"
+  end
+
+  create_table "texts", force: :cascade do |t|
+    t.string "language"
+    t.string "words", default: [], array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "cards", "decks"
+  add_foreign_key "scores", "api_v1_users"
 end
